@@ -32,16 +32,23 @@ jobs:
 
       - name: Copy .env file
         run: |
-          cp .env.example .env
-          cp .env.example .env.testing
+          cp .env.ci .env
+          cp .env.ci .env.testing
 
       - name: Run composer
         run: |
           composer install --no-interaction
 
+      - name: Generate Application Key
+        run: |
+          php artisan config:clear
+          php artisan key:generate
+
       - name: Run test suite
         run: |
           php artisan test
+        env:
+          DB_DATABASE: cicd_testing
 
       - name: Run Larastan
         run: |
