@@ -50,7 +50,7 @@ class User extends Authenticatable
         return 'users_index';
     }
 
-    public function toSearchableArray() : mixed
+    public function toSearchableArray(): array
     {
         return [
             'id' => (int) $this->id,
